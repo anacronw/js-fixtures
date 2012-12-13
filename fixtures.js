@@ -5,18 +5,18 @@ var fixtures = fixtures || new function(){
 
     self.containerId = 'js-fixtures';
     self.path = 'spec/javascripts/fixtures';
-    self.__defineGetter__("window", function(){
+    self.window = function(){
         var iframe = document.getElementById(self.containerId);
         if (!iframe) return null;
 
         return iframe.contentWindow || iframe.contentDocument; 
-    });
-    self.__defineGetter__("body", function(){
+    };
+    self.body = function(){
         return $('#' + self.containerId).contents().find('body').html();
-    });
+    };
     self.set = function(html){
         self.cleanUp();
-        addToContainer(html)
+        addToContainer(html);
     };
     self.appendSet = function(html){
         addToContainer(html);

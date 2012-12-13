@@ -11,14 +11,13 @@
     <script src="../node_modules/sinon/lib/sinon/stub.js"></script>
     <script src="../node_modules/sinon/lib/sinon/util/fake_xml_http_request.js"></script>
     <script src="../node_modules/sinon/lib/sinon/util/fake_server.js"></script>
-    <script src="../node_modules/chai/chai.js"></script>
-    <script src="../node_modules/chai-jquery/chai-jquery.js"></script>
-    <script src="../node_modules/sinon-chai/lib/sinon-chai.js"></script>
+    <script src="../node_modules/expect.js/expect.js"></script>
     <script src="../fixtures.js"></script>
     <script>
-      mocha.setup('bdd');
-      var should = chai.should();
-      var expect = chai.expect;
+      mocha.setup({
+        ui: 'bdd',
+        globals: ['js-fixtures'] //for IE not to complain
+      });
       window.onload = function () {
         var runner = mocha.run();
       };
