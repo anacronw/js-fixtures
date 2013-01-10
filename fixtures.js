@@ -9,7 +9,7 @@ var fixtures = fixtures || new function(){
         var iframe = document.getElementById(self.containerId);
         if (!iframe) return null;
 
-        return iframe.contentWindow || iframe.contentDocument; 
+        return iframe.contentWindow || iframe.contentDocument;
     };
     self.body = function(){
         return $('#' + self.containerId).contents().find('body').html();
@@ -73,14 +73,32 @@ var fixtures = fixtures || new function(){
         }
         return fixturesCache[url];
     };
-    var loadFixtureIntoCache = function(relativeUrl){
+    var loadFixtureByAjaxIntoCache = function(relativeUrl){
         var url = makeFixtureUrl(relativeUrl);
         var request = new XMLHttpRequest();
         request.open("GET", url + "?" + new Date().getTime(), false);
         request.send(null);
         fixturesCache[relativeUrl] = request.responseText;
     };
+    var loadFixtureByFsIntoCache = function(relativeUrl){
+        var fs = require('fs');
+        fixturesCache[relativeUrl] = fs.readFileSync(self.path + '/' + relativeUrl).toString()
+    };
+    var loadFixtureIntoCache = function(relativeUrl)
+    {
+        if (typeof require === 'function' && typeof exports === 'object' && typeof module === 'object') {
+            loadFixtureByFsIntoCache(relativeUrl);
+        }
+        else
+        {
+            loadFixtureByFsIntoCache(relativeUrl);
+        }
+    };
     var makeFixtureUrl = function(relativeUrl){
         return self.path.match('/$') ? self.path + relativeUrl : self.path + '/' + relativeUrl;
     };
 };
+
+if (typeof require === 'function' && typeof exports === 'object' && typeof module === 'object') {
+    module.exports = fixtures;
+}
