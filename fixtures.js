@@ -47,6 +47,20 @@
         self.appendLoad = function(){
             addToContainer(self.read.apply(self, arguments));
         };
+        self.sandbox = function(attrs){
+            self.cleanUp();
+            var iframe = document.createElement('div');
+            if (attrs !== undefined) {
+                // TODO: add support for data attributes
+                iframe.id = attrs.id || self.containerId;
+                iframe.className = attrs['class'];
+                self.containerId = iframe.id;
+            } else {
+                iframe.setAttribute("id", self.containerId);
+            }
+            iframe.style.display = "none";
+            document.body.appendChild(iframe);
+        };
         self.read = function(){
             var htmlChunks = [];
 
