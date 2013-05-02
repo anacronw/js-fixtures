@@ -78,6 +78,7 @@
             if(!iframe) return null;
 
             iframe.parentNode.removeChild(iframe);
+            self.containerId = 'js-fixtures';
         };
         var createContainer  = function(html){
 

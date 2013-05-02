@@ -270,7 +270,7 @@ define(function(require){
                     expect(document.getElementById(fixtures.containerId)).to.be.null;
                 });
             });
-            describe("sandox", function() {
+            describe("sandbox", function() {
                 it("should append a div to the DOM", function() {
                     fixtures.sandbox();
                     expect(document.getElementById(fixtures.containerId)).to.not.be.null;
@@ -278,6 +278,14 @@ define(function(require){
                 it("should append a div with custom id to the DOM", function() {
                     fixtures.sandbox({id: 'foo'});
                     expect(document.getElementById(fixtures.containerId).id).to.equal('foo');
+                });
+                it("should reset containers id to default", function() {
+                    var def = fixtures.containerId;
+                    expect(def).to.equal('js-fixtures');
+                    fixtures.sandbox({id: 'foo'});
+                    expect(document.getElementById(fixtures.containerId).id).to.equal('foo');
+                    fixtures.sandbox();
+                    expect(document.getElementById(fixtures.containerId).id).to.equal(def);
                 });
                 it("should append a div with custom id and class to the DOM", function() {
                     fixtures.sandbox({id: 'bar', 'class': 'foo'});
