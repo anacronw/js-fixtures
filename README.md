@@ -24,7 +24,7 @@ define(['fixtures'], function(fixtures){
 
 ## Usage
 
-Use `fixtures.load('your-fixture.html')` in your specs.  Fixtures will load from `/specs/javascript/your-fixture.html` (see below to change this path).  Once that is setup, you should be able to write specs that look like this:
+Use `fixtures.load('your-fixture.html')` in your specs.  Fixtures will load from `test/javascripts/fixtures/your-fixture.html` (see below to change this path).  Once that is setup, you should be able to write specs that look like this:
 
 ```javascript
 describe('my jquery plugin', function(){
