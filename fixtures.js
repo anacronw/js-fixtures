@@ -31,7 +31,7 @@
             return content;
         };
         self.load = function(html){
-            var cb = typeof arguments[arguments.length - 1] === 'function' ? arguments.pop() : null;
+            var cb = typeof arguments[arguments.length - 1] === 'function' ? Array.prototype.pop.call(arguments) : null;
             addToContainer(self.read.apply(self, arguments), cb);
         };
         self.set = function(html){
