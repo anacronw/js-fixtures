@@ -22,16 +22,16 @@
             var iframe = document.getElementById(self.containerId);
             if (!iframe) return null;
 
-            return iframe.contentWindow || iframe.contentDocument; 
+            return iframe.contentWindow || iframe.contentDocument;
         };
         self.body = function(){
             if (!self.window()) return null;
 
             var content = self.window().document.body.innerHTML;
-            return content; 
+            return content;
         };
         self.load = function(html){
-            var cb = typeof arguments[arguments.length - 1] === 'function' ? arguments[arguments.length -1] : null;
+            var cb = typeof arguments[arguments.length - 1] === 'function' ? arguments.pop() : null;
             addToContainer(self.read.apply(self, arguments), cb);
         };
         self.set = function(html){
@@ -116,7 +116,7 @@
             return self.path.match('/$') ? self.path + relativeUrl : self.path + '/' + relativeUrl;
         };
         var objToHTML = function(obj){
-            var divElem = document.createElement('div'); 
+            var divElem = document.createElement('div');
             for (var key in obj){
                 if (key === 'class'){ // IE < 9 compatibility
                     divElem.className = obj[key];
