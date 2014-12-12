@@ -160,22 +160,29 @@ define(function(require){
                 });
                 describe('when callback is passed', function(){
                     var stub;
+                    var stubCount = 0;
                     beforeEach(function(){
                         var xhr = sinon.useFakeXMLHttpRequest();
                         xhr.onCreate = function(xhr){
                             stub = sinon.stub(xhr, "send", function(something){
+                                stubCount++;
                                 xhr.responseText = '<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>';
                             });
                         };
                     });
                     afterEach(function(){
                         stub.restore();
+                        stubCount = 0;
                     });
                     it('executes callback upon iframe ready', function(done){
                         fixtures.load('some-fixture.html', function(){
                             expect(fixtures.window().$).to.exist;
                             done();
                         });
+                    });
+                    it('does not load the callback as a template', function(){
+                        fixtures.load('some-fixture.html', 'blah.html', function(){});
+                        expect(stubCount).to.equal(2)
                     });
                 });
             });
