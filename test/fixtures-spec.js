@@ -36,6 +36,9 @@ define(function(require){
                 it("should set body to null", function(){
                     expect(fixtures.body()).to.be(null);
                 });
+                it("should set bodyAsDom to 'empty' object", function(){
+                    expect(fixtures.bodyAsDom()).to.eql({length: 0});
+                });
                 it("should set window to null", function(){
                     expect(fixtures.window()).to.be(null);
                 });
@@ -83,6 +86,19 @@ define(function(require){
                     var sillyString = 'some silly string';
                     fixtures.set(sillyString);
                     expect(fixtures.body()).to.equal(sillyString);
+                });
+            });
+            describe("bodyAsDom", function(){
+                it("should not be null when initialized properly", function(){
+                    fixtures.set('test');
+                    expect(fixtures.bodyAsDom()).to.not.be(null);
+                });
+                it("should return the body contents of the iframe as DOM", function() {
+                    var sillyNode = '<span>some silly node</span>';
+                    var parser = new DOMParser();
+                    var parsedString = parser.parseFromString(sillyNode, "text/html");
+                    fixtures.set(sillyNode);
+                    expect(fixtures.bodyAsDom()).to.eql({0: parsedString, length: 1});
                 });
             });
             describe("window", function(){
