@@ -30,6 +30,12 @@
             var content = self.window().document.body.innerHTML;
             return content; 
         };
+        self.bodyAsDom = function(){
+            var content = self.body();
+            var parser = new DOMParser();
+            var domContent = parser.parseFromString(content, 'text/html');
+            return domContent.body.children;
+        };
         self.load = function(html){
             var cb = typeof arguments[arguments.length - 1] === 'function' ? arguments[arguments.length -1] : null;
             addToContainer(self.read.apply(self, arguments), cb);
