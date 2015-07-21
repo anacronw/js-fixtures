@@ -81,7 +81,7 @@
             }
 
             doc.open();
-            doc.defaultView.onerror = captureErrors;
+            doc['defaultView' in doc ? 'defaultView' : 'parentWindow'].onerror = captureErrors;
             doc.write(html);
             doc.close();
         };
