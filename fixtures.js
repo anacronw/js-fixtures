@@ -60,6 +60,12 @@
 
             iframe.parentNode.removeChild(iframe);
         };
+        self.show = function() {
+            document.getElementById(self.containerId).style.opacity = 1;
+        };
+        self.hide = function() {
+            document.getElementById(self.containerId).style.opacity = 0;
+        };
         var createContainer  = function(html){
             var cb = typeof arguments[arguments.length - 1] === 'function' ? arguments[arguments.length -1] : null;
             var iframe = document.createElement('iframe');
