@@ -257,6 +257,39 @@ define(function(require){
                 it('should succeed even if cleanup is called without loading', function(){
                     fixtures.cleanUp();
                 });
+                it("should clean up a sandbox", function() {
+                    fixtures.sandbox();
+                    fixtures.cleanUp();
+                    expect(document.getElementById(fixtures.containerId)).to.be.null;
+                });
+                it("should clean up a sandbox with a custom id", function() {
+                    fixtures.sandbox({id: 'foo'});
+                    fixtures.cleanUp();
+                    expect(document.getElementById(fixtures.containerId)).to.be.null;
+                });
+            });
+            describe("sandbox", function() {
+                it("should append a div to the DOM", function() {
+                    fixtures.sandbox();
+                    expect(document.getElementById(fixtures.containerId)).to.not.be.null;
+                });
+                it("should append a div with custom id to the DOM", function() {
+                    fixtures.sandbox({id: 'foo'});
+                    expect(document.getElementById(fixtures.containerId).id).to.equal('foo');
+                });
+                it("should reset containers id to default", function() {
+                    var def = fixtures.containerId;
+                    expect(def).to.equal('js-fixtures');
+                    fixtures.sandbox({id: 'foo'});
+                    expect(document.getElementById(fixtures.containerId).id).to.equal('foo');
+                    fixtures.sandbox();
+                    expect(document.getElementById(fixtures.containerId).id).to.equal(def);
+                });
+                it("should append a div with custom id and class to the DOM", function() {
+                    fixtures.sandbox({id: 'bar', 'class': 'foo'});
+                    expect(document.getElementById(fixtures.containerId).id).to.equal('bar');
+                    expect(document.getElementById(fixtures.containerId).className).to.equal('foo');
+                });
             });
         });
     };
